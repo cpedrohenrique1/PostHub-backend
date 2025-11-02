@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "tb_roles")
 @Data
 public class Role {
     @Id
@@ -20,8 +20,8 @@ public class Role {
     private String name;
 
     public enum Values {
-        USER(2L),
-        ADMIN(1L);
+        ADMIN(1L),
+        USER(2L);
 
         long roleId;
 

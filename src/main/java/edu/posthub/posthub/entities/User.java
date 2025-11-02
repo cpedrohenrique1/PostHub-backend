@@ -3,6 +3,9 @@ package edu.posthub.posthub.entities;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import edu.posthub.posthub.dtos.LoginRequestDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +21,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "users")
+@Table(name = "tb_users")
 @Data
 public class User {
     @Id
@@ -41,4 +44,8 @@ public class User {
     private Set<Role> roles;
 
     String password;
+
+    public boolean isLoginCorrect(LoginRequestDTO loginRequest, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.password(), this.password);
+    }
 }

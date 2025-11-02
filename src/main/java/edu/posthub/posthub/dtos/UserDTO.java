@@ -1,4 +1,6 @@
 package edu.posthub.posthub.dtos;
 
-public record UserDTO(Long id, String username) {
+import java.util.UUID;
+
+public record UserDTO(UUID id, String username) {
 }
