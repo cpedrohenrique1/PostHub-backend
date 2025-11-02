@@ -2,6 +2,7 @@ package edu.posthub.posthub.services;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import edu.posthub.posthub.dtos.LoginRequestDTO;
 import edu.posthub.posthub.dtos.LoginResponseDTO;
+import edu.posthub.posthub.entities.Role;
 import edu.posthub.posthub.entities.User;
 import edu.posthub.posthub.repositories.UserRepository;
 
@@ -35,12 +37,18 @@ public class TokenService {
         Instant now = Instant.now();
         Long expiresIn = 300L;
 
-        var jwtClaims = JwtClaimsSet
+        String scopes = user.get().getRoles()
+        .stream()
+        .map(Role::getName)
+        .collect(Collectors.joining(" "));
+
+        JwtClaimsSet jwtClaims = JwtClaimsSet
             .builder()
-            .issuer("mybackend")
+            .issuer("PostHub")
             .subject(user.get().getId().toString())
             .issuedAt(now)
             .expiresAt(now.plusSeconds(expiresIn))
+            .claim("scope", scopes)
             .build();
 
         String jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(jwtClaims)).getTokenValue();
