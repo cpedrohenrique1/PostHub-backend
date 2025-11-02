@@ -1,12 +1,11 @@
 package edu.posthub.posthub.repositories;
 
-import java.util.UUID;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import edu.posthub.posthub.entities.User;
+import edu.posthub.posthub.entities.Post;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
+public interface PostRepository extends JpaRepository<Post, Long> {
+
 }
