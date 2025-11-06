@@ -35,7 +35,7 @@ public class TokenService {
         }
 
         Instant now = Instant.now();
-        Long expiresIn = 300L;
+        Long expiresIn = 1000L * 60L * 60L * 12L;
 
         String scopes = user.get().getRoles()
         .stream()

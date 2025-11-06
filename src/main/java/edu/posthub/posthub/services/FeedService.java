@@ -17,6 +17,6 @@ public class FeedService {
     public Page<FeedItemDTO> feed(int page, int pageSize){
         return  postRepository.
                 findAll(PageRequest.of(page, pageSize, Sort.Direction.DESC, "creationTimestamp"))
-                .map(post -> new FeedItemDTO(post.getId(), post.getContent(), post.getAuthor().getUsername()));
+                .map(post -> new FeedItemDTO(post.getId(), post.getContent(), post.getAuthor().getUsername(), post.getCreationTimestamp()));
     }
 }
